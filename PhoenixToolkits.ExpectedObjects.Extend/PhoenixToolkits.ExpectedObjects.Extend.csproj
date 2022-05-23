@@ -3,6 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>ExpectedObjects</RootNamespace>
+    <PackageId>PhoenixToolkits.ExpectedObjects.Extend</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Phoenix</Authors>
+    <Company>Valhalla</Company>
+    <PackageProjectUrl>https://github.com/yggdrasill-dev/PhoenixToolkits.ExpectedObjects.Extend</PackageProjectUrl>
+    <PackageTags>PhoenixToolkits ExpectedObjects</PackageTags>
+    <RepositoryUrl>https://github.com/yggdrasill-dev/PhoenixToolkits.ExpectedObjects.Extend.git</RepositoryUrl>
+    <Description>ExpectedObjects 擴充方法</Description>
   </PropertyGroup>
 
   <ItemGroup>
