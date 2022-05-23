@@ -126,8 +126,8 @@ public class MemberExpectedTests
 
 		expected.ToExpectedObject(ctx =>
 		{
-			ctx.IgnoreEqualsOverride();
-			ctx.MemberShouldEqual(
+			_ = ctx.IgnoreEqualsOverride();
+			_ = ctx.MemberShouldEqual(
 				p => p.Children,
 				memberCtx => memberCtx
 					.IgnoreEqualsOverride());
@@ -255,8 +255,8 @@ public class MemberExpectedTests
 
 		expected.ToExpectedObject(ctx =>
 		{
-			ctx.IgnoreEqualsOverride();
-			ctx.MemberShouldNotEqual(
+			_ = ctx.IgnoreEqualsOverride();
+			_ = ctx.MemberShouldNotEqual(
 				p => p.Children,
 				memberCtx => memberCtx
 					.IgnoreEqualsOverride());
@@ -384,8 +384,8 @@ public class MemberExpectedTests
 
 		expected.ToExpectedObject(ctx =>
 		{
-			ctx.IgnoreEqualsOverride();
-			ctx.MemberShouldMatch(
+			_ = ctx.IgnoreEqualsOverride();
+			_ = ctx.MemberShouldMatch(
 				p => p.Children,
 				memberCtx => memberCtx
 					.IgnoreEqualsOverride());
@@ -513,8 +513,8 @@ public class MemberExpectedTests
 
 		expected.ToExpectedObject(ctx =>
 		{
-			ctx.IgnoreEqualsOverride();
-			ctx.MemberShouldMatch(
+			_ = ctx.IgnoreEqualsOverride();
+			_ = ctx.MemberShouldMatch(
 				p => p.Children,
 				memberCtx => memberCtx
 					.IgnoreEqualsOverride());

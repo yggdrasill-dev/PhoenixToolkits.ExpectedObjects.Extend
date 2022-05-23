@@ -5,7 +5,12 @@ VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoenixToolkits.ExpectedObjects.Extend", "PhoenixToolkits.ExpectedObjects.Extend\PhoenixToolkits.ExpectedObjects.Extend.csproj", "{DCAE24AC-075D-4AF7-89CB-AA88D300CE92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoenixToolkits.ExpectedObjects.Extend.UnitTests", "PhoenixToolkits.ExpectedObjects.Extend.UnitTests\PhoenixToolkits.ExpectedObjects.Extend.UnitTests.csproj", "{FB377B55-035F-4A07-9C57-20A405BB7BD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoenixToolkits.ExpectedObjects.Extend.UnitTests", "PhoenixToolkits.ExpectedObjects.Extend.UnitTests\PhoenixToolkits.ExpectedObjects.Extend.UnitTests.csproj", "{FB377B55-035F-4A07-9C57-20A405BB7BD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7B574735-EF25-4F58-9E60-2A8BB8BF0DC7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
