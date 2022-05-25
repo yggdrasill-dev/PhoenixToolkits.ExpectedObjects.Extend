@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using ExpectedObjects.Reporting;
 using ExpectedObjects.Strategies;
@@ -149,10 +148,13 @@ namespace ExpectedObjects
 
 			configurationContext.Member(expr)
 				.UsesComparison(new ExpressionComparision<IEnumerable<TMember>>(getMember.Invoke((TExpected)configurationContext.Object),
-					(expected, actual) => !expected.Select(
-						item => item.ToExpectedObject(configurationAction))
-						.ToExpectedObject()
-						.Equals(actual)));
+					(expected, actual) => !expected.ToExpectedObject(
+						ctx =>
+						{
+							ctx.ClearStrategies();
+							ctx.PushStrategy(new NestComparisonStrategy<TMember>(configurationAction));
+							ctx.PushStrategy<EnumerableComparisonStrategy>();
+						}).Equals(actual)));
 
 			return configurationContext;
 		}
@@ -166,10 +168,15 @@ namespace ExpectedObjects
 
 			configurationContext.Member(expr)
 				.UsesComparison(new ExpressionComparision<IEnumerable<TMember>>(getMember.Invoke((TExpected)configurationContext.Object),
-					(expected, actual) => expected.Select(
-						item => item.ToExpectedObject(configurationAction))
-						.ToExpectedObject()
-						.Equals(actual, NullWriter.Instance, true)));
+					(expected, actual) => expected.ToExpectedObject(
+						ctx =>
+						{
+							ctx.ClearStrategies();
+							ctx.PushStrategy(new NestComparisonStrategy<TMember>(
+								configurationAction,
+								true));
+							ctx.PushStrategy<EnumerableComparisonStrategy>();
+						}).Equals(actual, NullWriter.Instance, true)));
 
 			return configurationContext;
 		}
@@ -183,10 +190,15 @@ namespace ExpectedObjects
 
 			configurationContext.Member(expr)
 				.UsesComparison(new ExpressionComparision<IEnumerable<TMember>>(getMember.Invoke((TExpected)configurationContext.Object),
-					(expected, actual) => !expected.Select(
-						item => item.ToExpectedObject(configurationAction))
-						.ToExpectedObject()
-						.Equals(actual, NullWriter.Instance, true)));
+					(expected, actual) => !expected.ToExpectedObject(
+						ctx =>
+						{
+							ctx.ClearStrategies();
+							ctx.PushStrategy(new NestComparisonStrategy<TMember>(
+								configurationAction,
+								true));
+							ctx.PushStrategy<EnumerableComparisonStrategy>();
+						}).Equals(actual, NullWriter.Instance, true)));
 
 			return configurationContext;
 		}
