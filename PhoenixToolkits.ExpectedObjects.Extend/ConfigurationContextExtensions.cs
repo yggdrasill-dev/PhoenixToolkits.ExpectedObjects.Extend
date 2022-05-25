@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using ExpectedObjects.Reporting;
+using ExpectedObjects.Strategies;
 
 namespace ExpectedObjects
 {
@@ -112,6 +115,78 @@ namespace ExpectedObjects
 			configurationContext.Member(expr)
 				.UsesComparison(new ExpressionComparision<TMember>(getMember.Invoke((TExpected)configurationContext.Object),
 					(expected, actual) => !expected.ToExpectedObject(configurationAction).Equals(actual, NullWriter.Instance, true)));
+
+			return configurationContext;
+		}
+
+		public static IConfigurationContext<TExpected> ArrayMemberShouldEqual<TExpected, TMember>(
+			this IConfigurationContext<TExpected> configurationContext,
+			Expression<Func<TExpected, IEnumerable<TMember>>> expr,
+			Action<IConfigurationContext<TMember>> configurationAction)
+		{
+			var getMember = expr.Compile();
+
+			configurationContext.Member(expr)
+				.UsesComparison(
+					new ExpressionComparision<IEnumerable<TMember>>(getMember.Invoke((TExpected)configurationContext.Object),
+					(expected, actual) => expected.ToExpectedObject(
+						ctx =>
+						{
+							ctx.ClearStrategies();
+							ctx.PushStrategy(new NestComparisonStrategy<TMember>(configurationAction));
+							ctx.PushStrategy<EnumerableComparisonStrategy>();
+						}).Equals(actual)));
+
+			return configurationContext;
+		}
+
+		public static IConfigurationContext<TExpected> ArrayMemberShouldNotEqual<TExpected, TMember>(
+			this IConfigurationContext<TExpected> configurationContext,
+			Expression<Func<TExpected, IEnumerable<TMember>>> expr,
+			Action<IConfigurationContext<TMember>> configurationAction)
+		{
+			var getMember = expr.Compile();
+
+			configurationContext.Member(expr)
+				.UsesComparison(new ExpressionComparision<IEnumerable<TMember>>(getMember.Invoke((TExpected)configurationContext.Object),
+					(expected, actual) => !expected.Select(
+						item => item.ToExpectedObject(configurationAction))
+						.ToExpectedObject()
+						.Equals(actual)));
+
+			return configurationContext;
+		}
+
+		public static IConfigurationContext<TExpected> ArrayMemberShouldMatch<TExpected, TMember>(
+			this IConfigurationContext<TExpected> configurationContext,
+			Expression<Func<TExpected, IEnumerable<TMember>>> expr,
+			Action<IConfigurationContext<TMember>> configurationAction)
+		{
+			var getMember = expr.Compile();
+
+			configurationContext.Member(expr)
+				.UsesComparison(new ExpressionComparision<IEnumerable<TMember>>(getMember.Invoke((TExpected)configurationContext.Object),
+					(expected, actual) => expected.Select(
+						item => item.ToExpectedObject(configurationAction))
+						.ToExpectedObject()
+						.Equals(actual, NullWriter.Instance, true)));
+
+			return configurationContext;
+		}
+
+		public static IConfigurationContext<TExpected> ArrayMemberShouldNotMatch<TExpected, TMember>(
+			this IConfigurationContext<TExpected> configurationContext,
+			Expression<Func<TExpected, IEnumerable<TMember>>> expr,
+			Action<IConfigurationContext<TMember>> configurationAction)
+		{
+			var getMember = expr.Compile();
+
+			configurationContext.Member(expr)
+				.UsesComparison(new ExpressionComparision<IEnumerable<TMember>>(getMember.Invoke((TExpected)configurationContext.Object),
+					(expected, actual) => !expected.Select(
+						item => item.ToExpectedObject(configurationAction))
+						.ToExpectedObject()
+						.Equals(actual, NullWriter.Instance, true)));
 
 			return configurationContext;
 		}
