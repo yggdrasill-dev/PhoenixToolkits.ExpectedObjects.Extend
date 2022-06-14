@@ -4,12 +4,12 @@ using ExpectedObjects.Strategies;
 
 namespace ExpectedObjects
 {
-	internal class NestComparisonStrategy<TMember> : IComparisonStrategy
+	internal class NestedComparisonStrategy<TMember> : IComparisonStrategy
 	{
 		private readonly Action<IConfigurationContext<TMember>> m_ConfigurationAction;
 		private readonly bool m_IgnoreTypeInformation;
 
-		public NestComparisonStrategy(Action<IConfigurationContext<TMember>> configurationAction, bool ignoreTypeInformation = false)
+		public NestedComparisonStrategy(Action<IConfigurationContext<TMember>> configurationAction, bool ignoreTypeInformation = false)
 		{
 			m_ConfigurationAction = configurationAction;
 			m_IgnoreTypeInformation = ignoreTypeInformation;
