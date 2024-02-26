@@ -1,4 +1,4 @@
-name: Build & Push
+﻿name: Build & Push
 
 on:
   push:
@@ -56,4 +56,4 @@ jobs:
 
       - name: push
         run: |
-          dotnet nuget push "nuget\*.nupkg" -s "$($env:NugetSource)" -k "${{ secrets.PUBNUGETAPIKEY }}" --skip-duplicate
+          dotnet nuget push "nuget\*.nupkg" -s "$($env:NugetSource)" -k "${{ secrets.NUGETAPIKEY }}" --skip-duplicate
