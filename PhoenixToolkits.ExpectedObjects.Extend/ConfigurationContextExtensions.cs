@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using ExpectedObjects.Reporting;
 using ExpectedObjects.Strategies;
@@ -130,7 +131,7 @@ namespace ExpectedObjects
 
 			configurationContext.Member(expr)
 				.UsesComparison(new ExpressionComparision<IEnumerable<TMember>>(
-					getMember.Invoke((TExpected)configurationContext.Object),
+					getMember.Invoke((TExpected)configurationContext.Object).ToArray(),
 					(expected, actual) => expected.ToExpectedObject(
 						ctx =>
 						{
@@ -154,7 +155,7 @@ namespace ExpectedObjects
 
 			configurationContext.Member(expr)
 				.UsesComparison(new ExpressionComparision<IEnumerable<TMember>>(
-					getMember.Invoke((TExpected)configurationContext.Object),
+					getMember.Invoke((TExpected)configurationContext.Object).ToArray(),
 					(expected, actual) => !expected.ToExpectedObject(
 						ctx =>
 						{
